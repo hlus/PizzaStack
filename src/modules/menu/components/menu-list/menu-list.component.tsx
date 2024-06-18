@@ -3,7 +3,6 @@ import React from "react";
 import { Pizza } from "@app/modules/menu/types/pizza";
 import { MenuItem } from "@app/modules/menu/components/menu-item/menu-item.component";
 
-
 interface Props {
   items: Pizza[];
 }
