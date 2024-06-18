@@ -1,7 +1,9 @@
 import type { StorybookConfig } from "@storybook/react-webpack5";
 
+const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin');
+
 const config: StorybookConfig = {
-  stories: ["../src/**/*.mdx", "../src/**/*.stories.@(js|jsx|mjs|ts|tsx)"],
+  stories: ["../src/**/*.mdx", "../src/**/*.stories.@(ts|tsx)", "../src/**/*.story.@(ts|tsx)"],
   addons: [
     "@storybook/preset-create-react-app",
     "@storybook/addon-onboarding",
@@ -15,5 +17,9 @@ const config: StorybookConfig = {
     options: {},
   },
   staticDirs: ["../public"],
+  webpackFinal: (config) => {
+    config.resolve!.plugins = [new TsconfigPathsPlugin()];
+    return config;
+  },
 };
 export default config;
