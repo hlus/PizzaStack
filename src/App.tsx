@@ -1,11 +1,19 @@
-import React from 'react';
-import { Header } from './common/components/header/header.component';
+import React from "react";
+
+import { Header } from "@app/common/components/header/header.component";
+import { Footer } from "@app/common/components/footer/footer.component";
+import { MenuList } from "@app/modules/menu/components/menu-list/menu-list.component";
+
+import pizzaMenu from "@app/mocks/pizza.json";
 
 export const App: React.FC = () => {
   return (
     <div>
       <Header />
-      <h1 className='font-bold text-3xl text-red-500'>🍕 PizzaStack</h1>
+      <div className="mx-12 mb-24">
+        <MenuList items={pizzaMenu} />
+      </div>
+      <Footer />
     </div>
   );
-}
+};
