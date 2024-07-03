@@ -18,7 +18,7 @@ type Story = StoryObj<typeof meta>;
 
 export const View: Story = {
   args: {
-    imagePath: "/assets/pizza/manhattan.jpeg",
+    image: "menu/menu-172000716",
     weight: 555,
     title: "Піца Мангеттен",
     ingredients:
