@@ -1,7 +1,7 @@
 [
   {
     "id": 1,
-    "image": "manhattan.jpeg",
+    "image": "menu/menu-1720024683",
     "weight": 555,
     "title": "Піца Мангеттен",
     "ingredients": "(подвійна порція грибів), Гриби, Моцарела, Пепероні, Соус Альфредо",
@@ -9,7 +9,7 @@
   },
   {
     "id": 2,
-    "image": "pepperoni-w-tomatoes.jpeg",
+    "image": "menu/menu-1720024683",
     "weight": 554,
     "title": "Піца Пепероні з томатами",
     "ingredients": "Моцарела, Пепероні, Помідори, Соус Барбекю",
@@ -17,7 +17,7 @@
   },
   {
     "id": 3,
-    "image": "ham-w-mushrooms.jpeg",
+    "image": "menu/menu-1720024683",
     "weight": 545,
     "title": "Піца Шинка та гриби",
     "ingredients": "Шинка, Гриби, Моцарела, Соус PizzaStack",
@@ -25,7 +25,7 @@
   },
   {
     "id": 4,
-    "image": "texas.jpeg",
+    "image": "menu/menu-1720024683",
     "weight": 550,
     "title": "Піца Техас",
     "ingredients": "Кукурудза, Цибуля, Гриби, Ковбаски баварські, Моцарела, Соус Барбекю",
@@ -33,7 +33,7 @@
   },
   {
     "id": 5,
-    "image": "pepperoni.jpeg",
+    "image": "menu/menu-1720024683",
     "weight": 560,
     "title": "Піца Пепероні",
     "ingredients": "Моцарела, Пепероні, Соус PizzaStack",
@@ -41,7 +41,7 @@
   },
   {
     "id": 6,
-    "image": "margarita.jpeg",
+    "image": "menu/menu-1720024683",
     "weight": 552,
     "title": "Піца Маргаріта",
     "ingredients": "(подвійна порція моцарели), Моцарела, Соус PizzaStack",
@@ -49,7 +49,7 @@
   },
   {
     "id": 7,
-    "image": "barbecue.jpeg",
+    "image": "menu/menu-1720024683",
     "weight": 552,
     "title": "Піца Барбекю",
     "ingredients": "Курка, Цибуля, Бекон, Гриби, Моцарела, Соус Барбекю",
@@ -57,7 +57,7 @@
   },
   {
     "id": 8,
-    "image": "grill-mix.jpeg",
+    "image": "menu/menu-1720024683",
     "weight": 569,
     "title": "Піца Гриль Мікс",
     "ingredients": "Курка, Фрикадельки, Цибуля, Бекон, Болгарський перець, Моцарела, Соус Барбекю",
@@ -65,7 +65,7 @@
   },
   {
     "id": 9,
-    "image": "carbonara.jpeg",
+    "image": "menu/menu-1720024683",
     "weight": 540,
     "title": "Піца Карбонара",
     "ingredients": "Цибуля, Бекон, Шинка, Гриби, Моцарела, Соус Альфредо",
