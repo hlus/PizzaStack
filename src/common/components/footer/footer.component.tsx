@@ -3,7 +3,7 @@ import React from "react";
 import { FooterLink } from "@app/common/components/footer-link/footer-link.component";
 
 export const Footer = () => (
-  <div className="bg-gray-900 p-12">
+  <div className="bg-gray-900 p-12 mt-auto">
     <div>
       <div className="mb-4">
         <span className="uppercase font-bold text-sm text-zinc-500">
