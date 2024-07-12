@@ -16,13 +16,24 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-export const View: Story = {
+export const General: Story = {
   args: {
-    image: "menu/menu-172000716",
-    weight: 555,
-    title: "Піца Мангеттен",
+    image: "menu/menu-1720024631",
+    weight: 552,
+    title: "Піца Маргаріта",
     ingredients:
-      "(подвійна порція грибів), Гриби, Моцарела, Пепероні, Соус Альфредо",
-    price: 215,
+      "(подвійна порція моцарели), Моцарела, Соус",
+    price: 250,
+  },
+};
+
+export const Drink: Story = {
+  args: {
+    image: "menu/menu-1720770982",
+    weight: null,
+    title: "BonAqua",
+    ingredients: "",
+    price: 31,
+    fitImage: true,
   },
 };

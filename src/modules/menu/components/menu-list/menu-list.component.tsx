@@ -1,15 +1,21 @@
 import React from "react";
 
-import { Pizza } from "@app/modules/menu/types/pizza";
+import { Menu, useGetSettingsQuery } from "@app/core/types";
 import { MenuItem } from "@app/modules/menu/components/menu-item/menu-item.component";
 
 interface Props {
-  items: Pizza[];
+  items: Menu[];
 }
 
 export const MenuList: React.FC<Props> = ({ items }) => {
-  const renderMenuItem = ({image, ...pizza}: Pizza) => (
-    <MenuItem key={`pizza-${pizza.id}`} image={image} {...pizza} />
+  const { data } = useGetSettingsQuery({ fetchPolicy: "cache-only" });
+  const renderMenuItem = ({ image, ...pizza }: Menu) => (
+    <MenuItem
+      key={`pizza-${pizza.id}`}
+      image={image}
+      fitImage={pizza.category_id === data?.settings[0].drinks_category}
+      {...pizza}
+    />
   );
 
   return (

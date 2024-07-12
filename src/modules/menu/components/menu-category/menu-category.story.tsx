@@ -1,31 +1,36 @@
+import { ApolloProvider } from "@apollo/client";
 import type { Meta, StoryObj } from "@storybook/react";
 
-import { MenuList } from "./menu-list.component";
 import pizzaMock from "@app/mock/pizza-category.json";
-import { ApolloProvider } from "@apollo/client";
 import { apolloClient } from "@app/core/apollo-client";
+import { MenuCategory } from "./menu-category.component";
 
 const meta = {
-  title: "Menu/Menu List",
-  component: MenuList,
+  title: "Menu/Menu Category",
+  component: MenuCategory,
   parameters: {
     layout: "fullscreen",
   },
   tags: ["autodocs"],
   argTypes: {},
   args: {},
-} satisfies Meta<typeof MenuList>;
+} satisfies Meta<typeof MenuCategory>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;
 
 export const View: Story = {
   args: {
-    items: pizzaMock,
+    category: {
+      id: "22aaff0e-7429-46a9-9d41-2bc00ecd47d3",
+      slug: "pizza",
+      title: "Pizza",
+      menu_items: pizzaMock,
+    },
   },
   render: (props) => (
     <ApolloProvider client={apolloClient}>
-      <MenuList {...props} />
+      <MenuCategory {...props} />
     </ApolloProvider>
   ),
 };

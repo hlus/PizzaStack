@@ -1,13 +1,14 @@
-import { useGetMenuQuery } from "@app/core/types";
+import { useGetMenuQuery, useGetSettingsQuery } from "@app/core/types";
 import {
   ShowInfo,
   ShowInfoType,
 } from "@app/common/components/show-info/show-info.component";
-import { MenuList } from "@app/modules/menu/components/menu-list/menu-list.component";
+import { MenuCategory } from "../components/menu-category/menu-category.component";
 import { MenuItemListLoading } from "@app/modules/menu/components/menu-item-list-loading/menu-item-list-loading.component";
 
 export const MenuPage = () => {
   const { data, loading, error } = useGetMenuQuery();
+  const { loading: loadingSettings } = useGetSettingsQuery();
 
   if (error) {
     return (
@@ -20,7 +21,7 @@ export const MenuPage = () => {
     );
   }
 
-  if (loading) {
+  if (loading || loadingSettings) {
     return <MenuItemListLoading items={10} />;
   }
 
@@ -32,5 +33,11 @@ export const MenuPage = () => {
     );
   }
 
-  return <MenuList items={data!.menu} />;
+  return (
+    <div className="flex flex-col gap-12">
+      {data.categories.map((category) => (
+        <MenuCategory key={`category-${category.id}`} category={category} />
+      ))}
+    </div>
+  );
 };
