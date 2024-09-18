@@ -36,6 +36,16 @@
       "react-app",
       "react-app/jest",
       "plugin:storybook/recommended"
+    ],
+    "overrides": [
+      {
+        "files": [
+          "**/*.tsx"
+        ],
+        "rules": {
+          "react-hooks/exhaustive-deps": "off"
+        }
+      }
     ]
   },
   "browserslist": {
