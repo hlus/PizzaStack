@@ -1,14 +1,10 @@
-import React, { ComponentProps } from "react";
+import React, { ComponentProps } from 'react';
 
-interface Props extends ComponentProps<"button"> {
+interface Props extends ComponentProps<'button'> {
   onRestart?: () => void;
 }
 
-export const Counter: React.FC<Props> = ({
-  onRestart = () => null,
-  children,
-  ...rest
-}) => {
+export const Counter: React.FC<Props> = ({ onRestart = () => null, children, ...rest }) => {
   const [counter, setCounter] = React.useState(60);
   const [isDisabled, setIsDisabled] = React.useState(false);
   const counterRef = React.useRef<NodeJS.Timer>();
@@ -16,15 +12,10 @@ export const Counter: React.FC<Props> = ({
   const startCounter = () => {
     setIsDisabled(true);
     setCounter(60);
-    counterRef.current = setInterval(
-      () => setCounter((counter) => counter - 1),
-      1000
-    );
+    counterRef.current = setInterval(() => setCounter((counter) => counter - 1), 1000);
   };
 
-  const handleButtonClick = (
-    event?: React.MouseEvent<HTMLButtonElement, MouseEvent>
-  ) => {
+  const handleButtonClick = (event?: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     if (event) {
       onRestart();
     }
@@ -42,12 +33,7 @@ export const Counter: React.FC<Props> = ({
   }, [counter]);
 
   return (
-    <button
-      className="text-gray-900 text-sm"
-      disabled={isDisabled}
-      onClick={handleButtonClick}
-      {...rest}
-    >
+    <button className="text-gray-900 text-sm" disabled={isDisabled} onClick={handleButtonClick} {...rest}>
       {children} {isDisabled && `(${counter} sec)`}
     </button>
   );
