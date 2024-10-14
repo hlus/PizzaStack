@@ -16,6 +16,6 @@ type Story = StoryObj<typeof meta>;
 export const View: Story = {
   args: {
     children: "send sms code again",
-    onSendCodeAgain: () => alert('kek')
+    onRestart: () => alert('kek')
   },
 };

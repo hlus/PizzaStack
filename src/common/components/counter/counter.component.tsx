@@ -1,11 +1,11 @@
 import React, { ComponentProps } from "react";
 
 interface Props extends ComponentProps<"button"> {
-  onSendCodeAgain?: () => void;
+  onRestart?: () => void;
 }
 
 export const Counter: React.FC<Props> = ({
-  onSendCodeAgain = () => {},
+  onRestart = () => null,
   children,
   ...rest
 }) => {
@@ -22,9 +22,14 @@ export const Counter: React.FC<Props> = ({
     );
   };
 
-  const handleSendCodeClick = () => {
+  const handleButtonClick = (
+    event?: React.MouseEvent<HTMLButtonElement, MouseEvent>
+  ) => {
+    if (event) {
+      onRestart();
+    }
+
     startCounter();
-    onSendCodeAgain();
   };
 
   React.useEffect(startCounter, []);
@@ -40,7 +45,7 @@ export const Counter: React.FC<Props> = ({
     <button
       className="text-gray-900 text-sm"
       disabled={isDisabled}
-      onClick={handleSendCodeClick}
+      onClick={handleButtonClick}
       {...rest}
     >
       {children} {isDisabled && `(${counter} sec)`}
