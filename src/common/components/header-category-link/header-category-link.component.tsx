@@ -1,0 +1,11 @@
+import { FC, PropsWithChildren } from 'react';
+
+interface HeaderCategoryLinkProps {
+  url: string;
+}
+
+export const HeaderCategoryLink: FC<PropsWithChildren<HeaderCategoryLinkProps>> = ({ children, url }) => (
+  <a href={url} className="relative font-semibold after:content-[''] after:block after:absolute after:w-full after:h-px hover:after:bg-amber-400">
+    {children}
+  </a>
+);

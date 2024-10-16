@@ -1,17 +1,17 @@
 import type { Meta, StoryObj } from "@storybook/react";
 
-import { Link } from "./link.component";
+import { HeaderCategoryLink } from "./header-category-link.component";
 
 const meta = {
-  title: "Common/Link",
-  component: Link,
+  title: "Common/Header Category Link",
+  component: HeaderCategoryLink,
   parameters: {
     layout: "fullscreen",
   },
   tags: ["autodocs"],
   argTypes: {},
   args: {},
-} satisfies Meta<typeof Link>;
+} satisfies Meta<typeof HeaderCategoryLink>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;

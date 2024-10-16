@@ -1,24 +1,24 @@
-import type { Meta, StoryObj } from "@storybook/react";
+import type { Meta, StoryObj } from '@storybook/react';
 
-import { Button, ButtonSize, ButtonVariant } from "./button.componen";
+import { Button, ButtonSize, ButtonVariant } from './button.component';
 
 const meta = {
-  title: "Form/Button",
+  title: 'Form/Button',
   component: Button,
-  tags: ["autodocs"],
+  tags: ['autodocs'],
   argTypes: {
     size: {
-      options: Object.values(ButtonSize).filter(x => typeof x === "string"),
+      options: Object.values(ButtonSize).filter((x) => typeof x === 'string'),
       mapping: ButtonSize,
       control: {
-        type: "select",
+        type: 'select',
       },
     },
     variant: {
-      options: Object.values(ButtonVariant).filter(x => typeof x === "string"),
+      options: Object.values(ButtonVariant).filter((x) => typeof x === 'string'),
       mapping: ButtonVariant,
       control: {
-        type: "select",
+        type: 'select',
       },
     },
   },
@@ -30,7 +30,7 @@ type Story = StoryObj<typeof meta>;
 
 export const View: Story = {
   args: {
-    children: "Enter",
+    children: 'Enter',
     size: ButtonSize.Base,
     variant: ButtonVariant.Primary,
     disabled: false,

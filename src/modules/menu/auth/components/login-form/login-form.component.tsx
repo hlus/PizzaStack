@@ -3,10 +3,10 @@ import * as yup from 'yup';
 import { Controller, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 
-import { Input } from '@app/common/components/input/input.component';
-import { Button } from '@app/common/components/button/button.componen';
-import { Counter } from '@app/common/components/counter/counter.component';
 import { phoneRegexp } from '@app/common/utils/regex';
+import { Input } from '@app/common/components/input/input.component';
+import { Button } from '@app/common/components/button/button.component';
+import { Counter } from '@app/common/components/counter/counter.component';
 
 interface LoginFormProps {}
 
