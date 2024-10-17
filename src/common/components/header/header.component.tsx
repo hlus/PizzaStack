@@ -5,9 +5,9 @@ import { Categories } from '@app/core/types';
 import { HeaderCategoryLink } from '../header-category-link/header-category-link.component';
 import { Skeleton } from '../skeleton/skeleton.component';
 import { Button, ButtonSize } from '../button/button.component';
-import { UserDropdown } from '@app/modules/menu/auth/components/user-dropdown/user-dropdown.component';
+import { UserDropdown } from '@app/modules/auth/components/user-dropdown/user-dropdown.component';
 
-type Category = Omit<Categories, 'menu_items'>;
+type Category = Omit<Categories, 'menu_items' | 'menu_items_aggregate'>;
 
 interface Props {
   isLoading?: boolean;

@@ -1,17 +1,19 @@
 import React, { ComponentProps } from 'react';
 
 interface Props extends ComponentProps<'button'> {
+  intervalTime?: number;
+
   onRestart?: () => void;
 }
 
-export const Counter: React.FC<Props> = ({ onRestart = () => null, children, ...rest }) => {
-  const [counter, setCounter] = React.useState(60);
+export const Counter: React.FC<Props> = ({ intervalTime = 60, onRestart = () => null, children, ...rest }) => {
+  const [counter, setCounter] = React.useState(intervalTime);
   const [isDisabled, setIsDisabled] = React.useState(false);
   const counterRef = React.useRef<NodeJS.Timer>();
 
   const startCounter = () => {
     setIsDisabled(true);
-    setCounter(60);
+    setCounter(intervalTime);
     counterRef.current = setInterval(() => setCounter((counter) => counter - 1), 1000);
   };
 

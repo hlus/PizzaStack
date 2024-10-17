@@ -1,10 +1,10 @@
-import { FC } from "react";
+import { FC } from 'react';
 
-import { Categories } from "@app/core/types";
-import { MenuList } from "../menu-list/menu-list.component";
+import { Categories } from '@app/core/types';
+import { MenuList } from '../menu-list/menu-list.component';
 
 interface Props {
-  category: Categories;
+  category: Omit<Categories, 'menu_items_aggregate'>;
 }
 
 export const MenuCategory: FC<Props> = ({ category }) => (
