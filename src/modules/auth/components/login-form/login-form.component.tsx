@@ -1,88 +1,29 @@
 import React from 'react';
-import * as yup from 'yup';
-import { Controller, ControllerProps, useForm } from 'react-hook-form';
-import { yupResolver } from '@hookform/resolvers/yup';
+import { toast } from 'react-toastify';
+import { Controller, ControllerProps } from 'react-hook-form';
 
-import { phoneRegexp } from '@app/common/utils/regex';
+import { useLoginForm } from './use-login-form';
 import { Input } from '@app/common/components/input/input.component';
 import { Button } from '@app/common/components/button/button.component';
 import { Counter } from '@app/common/components/counter/counter.component';
-import { toast } from 'react-toastify';
+import { LoginFormFields, LoginFormStep, LoginFormValues } from './login-form.types';
 
 interface LoginFormProps {
   onSendPhoneNumber?: (phoneNumber: string) => Promise<void>;
   onVerifyCode?: (phoneNumber: string, code: string) => Promise<void>;
 }
 
-enum LoginFormFields {
-  PhoneNumber = 'phoneNumber',
-  Code = 'code',
-}
-
-interface LoginFormValues {
-  [LoginFormFields.PhoneNumber]: string;
-  [LoginFormFields.Code]: string;
-}
-
-enum LoginFormStep {
-  GettingPhoneNumber,
-  VerifySMSCode,
-}
-
-const generateValidationSchema = (loginStep: LoginFormStep) => {
-  const baseValidation = {
-    [LoginFormFields.PhoneNumber]: yup
-      .string()
-      .trim()
-      .required('Введіть телефонний номер')
-      .matches(phoneRegexp, 'Введіть коректний телефонний номер'),
-  };
-  if (loginStep === LoginFormStep.GettingPhoneNumber) {
-    return yup.object(baseValidation);
-  }
-
-  return yup.object({
-    ...baseValidation,
-    [LoginFormFields.Code]: yup.string().required('Введіть код'),
-  });
-};
-
-export const LoginForm: React.FC<LoginFormProps> = ({ onSendPhoneNumber = () => null, onVerifyCode = () => null }) => {
+export const LoginForm: React.FC<LoginFormProps> = ({ onSendPhoneNumber, onVerifyCode }) => {
   const [loginStep, setLoginStep] = React.useState<LoginFormStep>(LoginFormStep.GettingPhoneNumber);
-  const {
-    control,
-    handleSubmit,
-    getValues,
-    formState: { isSubmitting },
-  } = useForm<LoginFormValues>({
-    resolver: yupResolver(generateValidationSchema(loginStep) as yup.ObjectSchema<LoginFormValues>),
-    defaultValues: {
-      [LoginFormFields.PhoneNumber]: '',
-      [LoginFormFields.Code]: '',
-    },
-  });
-
-  const submitForm = async (values: LoginFormValues) => {
-    try {
-      if (loginStep === LoginFormStep.GettingPhoneNumber) {
-        await onSendPhoneNumber(values[LoginFormFields.PhoneNumber]);
-        setLoginStep(LoginFormStep.VerifySMSCode);
-        return;
-      }
-
-      if (loginStep === LoginFormStep.VerifySMSCode) {
-        await onVerifyCode(values[LoginFormFields.PhoneNumber], values[LoginFormFields.Code]);
-      }
-    } catch (e) {
-      toast.error((e as Error).message);
-    }
-  };
+  const { control, getValues, onSubmit, isSubmitting } = useLoginForm(loginStep, setLoginStep, onSendPhoneNumber, onVerifyCode);
 
   const handleResendSMS = async () => {
     const phoneNumber = getValues(LoginFormFields.PhoneNumber);
 
     try {
-      await onSendPhoneNumber(phoneNumber);
+      if (onSendPhoneNumber) {
+        await onSendPhoneNumber(phoneNumber);
+      }
     } catch (e) {
       toast.error((e as Error).message);
     }
@@ -105,7 +46,7 @@ export const LoginForm: React.FC<LoginFormProps> = ({ onSendPhoneNumber = () => 
 
   return (
     <div className="w-112 py-8 px-10 bg-white rounded-lg shadow mx-auto">
-      <form onSubmit={handleSubmit(submitForm)}>
+      <form onSubmit={onSubmit}>
         <div className="flex flex-col gap-2">
           <Controller control={control} name={LoginFormFields.PhoneNumber} render={renderPhoneNumberInput} />
           {loginStep === LoginFormStep.VerifySMSCode && <Controller control={control} name={LoginFormFields.Code} render={renderCodeInput} />}

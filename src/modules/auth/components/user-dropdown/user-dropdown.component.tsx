@@ -1,8 +1,9 @@
 import React from 'react';
 
+import { isLoggedInReactive } from '../../store/reactive-vars';
+import { useOnClickOutside } from '@app/common/hooks/use-on-click-outside.hook';
 import { ReactComponent as UserSolidIcon } from '@app/assets/icons/user-solid.svg';
 import { UserDropdownLink } from '../user-dropdown-link/user-dropdown-link.component';
-import { useOnClickOutside } from '@app/common/hooks/use-on-click-outside.hook';
 
 export const UserDropdown: React.FC = () => {
   const userDropdownRef = React.useRef<HTMLDivElement>(null);
@@ -12,6 +13,8 @@ export const UserDropdown: React.FC = () => {
 
   const logout = () => {
     toggleDropdownState();
+    localStorage.removeItem('jwt');
+    isLoggedInReactive(false);
   };
 
   useOnClickOutside(userDropdownRef, () => {
@@ -30,9 +33,9 @@ export const UserDropdown: React.FC = () => {
       {isDropdownOpen && (
         <div className="absolute right-0 top-7.5 bg-white border border-gray-200 shadow-lg rounded-md py-1.5 w-49">
           <UserDropdownLink to="/profile" onClick={toggleDropdownState}>
-            Ваш профіль
+            Your profile
           </UserDropdownLink>
-          <UserDropdownLink onClick={logout}>Вийти</UserDropdownLink>
+          <UserDropdownLink onClick={logout}>Logout</UserDropdownLink>
         </div>
       )}
     </div>

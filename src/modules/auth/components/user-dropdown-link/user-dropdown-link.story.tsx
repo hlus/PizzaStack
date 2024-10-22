@@ -18,7 +18,7 @@ export const View: Story = {
   args: {},
   render: (props) => (
     <MemoryRouter>
-      <UserDropdownLink {...props}>Ваш профіль</UserDropdownLink>
+      <UserDropdownLink {...props}>Your profile</UserDropdownLink>
     </MemoryRouter>
   ),
 };
