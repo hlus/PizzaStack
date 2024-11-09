@@ -1,15 +1,32 @@
 import React from 'react';
 import { Controller } from 'react-hook-form';
 
-import { InfoFormFields } from './update-info.types';
+import { Customers } from '@app/core/types';
 import { useUpdateInfoForm } from './use-update-info-form';
 import { Input } from '@app/common/components/input/input.component';
 import { Button } from '@app/common/components/button/button.component';
+import { InfoFormFields, UpdateInfoFormValues } from './update-info.types';
 import { ActionPaper } from '@app/common/components/action-paper/action-paper.component';
 import { ActionPaperFooter } from '@app/common/components/action-paper-footer/action-paper-footer.component';
 
-export const UpdateInfo: React.FC = () => {
-  const { control, isSubmitting, onSubmit } = useUpdateInfoForm();
+interface UpdateInfoProps {
+  initialValues?: Customers;
+  isUpdating?: boolean;
+
+  onInfoUpdate?: (values: UpdateInfoFormValues) => Promise<void>;
+}
+
+export const UpdateInfo: React.FC<UpdateInfoProps> = ({ initialValues, isUpdating, onInfoUpdate }) => {
+  const { control, isSubmitting, onSubmit, reset } = useUpdateInfoForm(initialValues, onInfoUpdate);
+
+  React.useEffect(() => {
+    if (!isUpdating) {
+      reset({
+        name: initialValues?.name || '',
+        address: initialValues?.address || '',
+      });
+    }
+  }, [initialValues, isUpdating]);
 
   const actionPaperFooter = (
     <ActionPaperFooter>

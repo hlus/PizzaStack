@@ -4,9 +4,11 @@ import { Route, Routes } from 'react-router-dom';
 import { useGetCategoriesQuery } from '@app/core/types';
 import { LoginPage } from './modules/auth/pages/login.page';
 import { MenuPage } from '@app/modules/menu/pages/menu.page';
+import { ProfilePage } from './modules/user/pages/profile.page';
 import { Header } from '@app/common/components/header/header.component';
 import { Footer } from '@app/common/components/footer/footer.component';
 import { isLoggedInReactive } from '@app/modules/auth/store/reactive-vars';
+import { PrivateRoute } from './common/components/private-route/private-route.component';
 
 export const App: React.FC = () => {
   const { data, loading } = useGetCategoriesQuery();
@@ -23,6 +25,14 @@ export const App: React.FC = () => {
         <Routes>
           <Route path="/" element={<MenuPage />} />
           <Route path="/login" element={<LoginPage />} />
+          <Route
+            path="/profile"
+            element={
+              <PrivateRoute>
+                <ProfilePage />
+              </PrivateRoute>
+            }
+          />
         </Routes>
       </div>
       <Footer />

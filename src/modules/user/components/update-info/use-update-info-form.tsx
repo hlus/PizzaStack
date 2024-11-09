@@ -1,7 +1,9 @@
 import * as yup from 'yup';
+import { toast } from 'react-toastify';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 
+import { Customers } from '@app/core/types';
 import { min3Symbols, phoneRegexp } from '@app/common/utils/regex';
 import { InfoFormFields, UpdateInfoFormValues } from './update-info.types';
 
@@ -11,20 +13,33 @@ const validationSchema = yup.object({
   [InfoFormFields.Address]: yup.string().trim().matches(min3Symbols, { excludeEmptyString: true, message: 'Please enter minimum 3 letters' }),
 });
 
-export const useUpdateInfoForm = () => {
+export const useUpdateInfoForm = (initialValues?: Customers, onUpdateInfo?: (values: UpdateInfoFormValues) => Promise<void>) => {
   const {
     control,
     formState: { isSubmitting },
+    reset,
     handleSubmit,
   } = useForm({
+    defaultValues: {
+      [InfoFormFields.Phone]: initialValues?.phone,
+      [InfoFormFields.Name]: initialValues?.name || '',
+      [InfoFormFields.Address]: initialValues?.address || '',
+    },
     resolver: yupResolver(validationSchema),
   });
 
-  const submitForm = (values: UpdateInfoFormValues) => {
-    alert(JSON.stringify(values));
+  const submitForm = async (values: UpdateInfoFormValues) => {
+    if (onUpdateInfo) {
+      try {
+        await onUpdateInfo(values);
+        toast.success('Personal Info Updated!');
+      } catch (e) {
+        toast.error((e as Error).message);
+      }
+    }
   };
 
   const onSubmit = handleSubmit(submitForm);
 
-  return { isSubmitting, control, onSubmit };
+  return { isSubmitting, control, onSubmit, reset };
 };
