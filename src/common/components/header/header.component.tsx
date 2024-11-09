@@ -3,6 +3,7 @@ import { useReactiveVar } from '@apollo/client';
 import { Link, useLocation } from 'react-router-dom';
 
 import { Categories } from '@app/core/types';
+import { ReactComponent as ShoppingCartSolidIcon } from '@app/assets/icons/shopping-cart-solid.svg';
 import { Skeleton } from '../skeleton/skeleton.component';
 import { Button, ButtonSize } from '../button/button.component';
 import { isLoggedInReactive } from '@app/modules/auth/store/reactive-vars';
@@ -52,7 +53,10 @@ export const Header: React.FC<Props> = ({ isLoading, categories }) => {
           )
         )}
       </div>
-      <div>
+      <div className="flex items-center gap-3">
+        <button>
+          <ShoppingCartSolidIcon className="w-6 h-6 [&>*]:fill-gray-900" />
+        </button>
         {isLoggedIn ? (
           <UserDropdown />
         ) : (

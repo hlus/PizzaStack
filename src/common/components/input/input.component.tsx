@@ -16,7 +16,7 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
     const inputId = useId();
 
     const inputClasses = clsx(
-      "block border border-gray-300 shadow-sm bg-white rounded-md px-3 py-2 text-sm placeholder-gray-400 outline-none transition-all",
+      "block border border-gray-300 shadow-sm bg-white rounded-md pl-3 pr-8 py-2 text-sm placeholder-gray-400 outline-none transition-all",
       {
         "border-red-300 focus:border-red-500 text-red-900": error,
         "w-full": fullWidth,
