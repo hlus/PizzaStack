@@ -5,6 +5,7 @@ import { Link, useLocation } from 'react-router-dom';
 import { Categories } from '@app/core/types';
 import { Skeleton } from '../skeleton/skeleton.component';
 import { Button, ButtonSize } from '../button/button.component';
+import { toggleCart } from '@app/modules/cart/store/cart-open-state';
 import { isLoggedInReactive } from '@app/modules/auth/store/reactive-vars';
 import { HeaderCategoryLink } from '../header-category-link/header-category-link.component';
 import { UserDropdown } from '@app/modules/auth/components/user-dropdown/user-dropdown.component';
@@ -54,7 +55,7 @@ export const Header: React.FC<Props> = ({ isLoading, categories }) => {
         )}
       </div>
       <div className="flex items-center gap-3">
-        <button>
+        <button onClick={toggleCart}>
           <ShoppingCartSolidIcon className="w-6 h-6 [&>*]:fill-gray-900" />
         </button>
         {isLoggedIn ? (

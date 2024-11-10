@@ -1,22 +1,39 @@
+import clsx from 'clsx';
 import React from 'react';
+import { useReactiveVar } from '@apollo/client';
 
-import { ReactComponent as PizzaIcon } from '@app/assets/icons/pizza.svg';
-import { ReactComponent as XMarkSolidIcon } from '@app/assets/icons/x-mark-solid.svg';
 import { CartItem } from '../cart-item/cart-item.component';
 import { Button } from '@app/common/components/button/button.component';
+import { cartOpenedState, closeCart } from '../../store/cart-open-state';
+import { ReactComponent as PizzaIcon } from '@app/assets/icons/pizza.svg';
+import { useOnClickOutside } from '@app/common/hooks/use-on-click-outside.hook';
+import { ReactComponent as XMarkSolidIcon } from '@app/assets/icons/x-mark-solid.svg';
 
 interface CartSidebarProps {
   items: any[];
 }
 
 export const CartSidebar: React.FC<CartSidebarProps> = ({ items }) => {
+  const sidebar = React.useRef(null);
+  const isOpened = useReactiveVar(cartOpenedState);
+
   const renderCartItem = (item: any) => <CartItem title={item.title} image={item.image} count={item.count} price={item.price} />;
 
+  const cartClasses = clsx('w-112 h-[calc(100vh_-_3rem)] p-6 shadow-xl fixed z-10 bg-white right-0 top-12 transition-all', {
+    'translate-x-full': !isOpened,
+  });
+
+  useOnClickOutside(sidebar, () => {
+    if (isOpened) {
+      closeCart();
+    }
+  });
+
   return (
-    <div className="w-112 h-[calc(100vh_-_3rem)] p-6 shadow-xl fixed z-10 bg-white right-0 top-12">
+    <div ref={sidebar} className={cartClasses}>
       <div className="flex justify-between items-center mb-6">
         <span className="text-lg font-medium text-gray-900">Cart</span>
-        <button>
+        <button onClick={closeCart}>
           <XMarkSolidIcon className="w-3.5 h-3.5 [&>*]:fill-gray-400" />
         </button>
       </div>
