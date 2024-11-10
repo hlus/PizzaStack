@@ -12,6 +12,7 @@ interface InputNumberProps extends Omit<ComponentProps<'input'>, 'size' | 'value
   error?: string;
   fullWidth?: boolean;
   size?: InputNumberSize;
+  hideError?: boolean;
 
   setValue?: (value: number) => void;
 }
@@ -19,7 +20,7 @@ interface InputNumberProps extends Omit<ComponentProps<'input'>, 'size' | 'value
 const nbsp = '\u00A0';
 
 export const InputNumber = React.forwardRef<HTMLInputElement, InputNumberProps>(
-  ({ label, error, fullWidth, size = InputNumberSize.M, setValue, onFocus, onBlur, ...rest }, ref) => {
+  ({ label, error, fullWidth, size = InputNumberSize.Base, hideError, setValue, onFocus, onBlur, ...rest }, ref) => {
     const inputId = useId();
 
     const [isFocused, setIsFocused] = React.useState(false);
@@ -29,6 +30,7 @@ export const InputNumber = React.forwardRef<HTMLInputElement, InputNumberProps>(
       error,
       fullWidth,
       isFocused,
+      hideError,
     });
 
     const handleInputFocus: React.FocusEventHandler<HTMLInputElement> = (e: React.FocusEvent<HTMLInputElement, Element>) => {
@@ -73,7 +75,7 @@ export const InputNumber = React.forwardRef<HTMLInputElement, InputNumberProps>(
             <Plus16Icon className={iconsClasses} />
           </button>
         </div>
-        <span className="block text-sm text-red-600">{error || nbsp}</span>
+        {!hideError && <span className="block text-sm text-red-600">{error || nbsp}</span>}
       </div>
     );
   }

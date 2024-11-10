@@ -1,4 +1,4 @@
 export enum InputNumberSize {
-  S = 'small',
-  M = 'medium',
+  Sm = 'small',
+  Base = 'base',
 }
