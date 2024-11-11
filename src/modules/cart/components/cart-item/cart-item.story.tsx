@@ -16,18 +16,20 @@ type Story = StoryObj<typeof meta>;
 
 export const Pizza: Story = {
   args: {
+    id: '1wada2da2',
     title: 'Піца баребкю',
     image: 'menu/menu-1720024683',
-    count: 2,
+    amount: 2,
     price: 57,
   },
 };
 
 export const Drink: Story = {
   args: {
+    id: 'awdadawdawd',
     title: 'Бонаква',
     image: 'menu/menu-1720770982',
-    count: 1,
+    amount: 1,
     price: 57,
   },
 };

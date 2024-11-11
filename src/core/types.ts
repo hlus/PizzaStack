@@ -3147,6 +3147,13 @@ export type GetCustomerDataQueryVariables = Exact<{ [key: string]: never; }>;
 
 export type GetCustomerDataQuery = { __typename?: 'query_root', customers: Array<{ __typename?: 'customers', id: any, name?: string | null, phone: string, address?: string | null }> };
 
+export type GetMenuItemsForCartQueryVariables = Exact<{
+  menuIds: Array<Scalars['uuid']['input']> | Scalars['uuid']['input'];
+}>;
+
+
+export type GetMenuItemsForCartQuery = { __typename?: 'query_root', menu: Array<{ __typename?: 'menu', id: any, image: string, title: string, price: any }> };
+
 export type GetMenuQueryVariables = Exact<{ [key: string]: never; }>;
 
 
@@ -3332,6 +3339,49 @@ export type GetCustomerDataQueryHookResult = ReturnType<typeof useGetCustomerDat
 export type GetCustomerDataLazyQueryHookResult = ReturnType<typeof useGetCustomerDataLazyQuery>;
 export type GetCustomerDataSuspenseQueryHookResult = ReturnType<typeof useGetCustomerDataSuspenseQuery>;
 export type GetCustomerDataQueryResult = Apollo.QueryResult<GetCustomerDataQuery, GetCustomerDataQueryVariables>;
+export const GetMenuItemsForCartDocument = gql`
+    query GetMenuItemsForCart($menuIds: [uuid!]!) {
+  menu(where: {id: {_in: $menuIds}}) {
+    id
+    image
+    title
+    price
+  }
+}
+    `;
+
+/**
+ * __useGetMenuItemsForCartQuery__
+ *
+ * To run a query within a React component, call `useGetMenuItemsForCartQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetMenuItemsForCartQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetMenuItemsForCartQuery({
+ *   variables: {
+ *      menuIds: // value for 'menuIds'
+ *   },
+ * });
+ */
+export function useGetMenuItemsForCartQuery(baseOptions: Apollo.QueryHookOptions<GetMenuItemsForCartQuery, GetMenuItemsForCartQueryVariables> & ({ variables: GetMenuItemsForCartQueryVariables; skip?: boolean; } | { skip: boolean; }) ) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetMenuItemsForCartQuery, GetMenuItemsForCartQueryVariables>(GetMenuItemsForCartDocument, options);
+      }
+export function useGetMenuItemsForCartLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetMenuItemsForCartQuery, GetMenuItemsForCartQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetMenuItemsForCartQuery, GetMenuItemsForCartQueryVariables>(GetMenuItemsForCartDocument, options);
+        }
+export function useGetMenuItemsForCartSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<GetMenuItemsForCartQuery, GetMenuItemsForCartQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<GetMenuItemsForCartQuery, GetMenuItemsForCartQueryVariables>(GetMenuItemsForCartDocument, options);
+        }
+export type GetMenuItemsForCartQueryHookResult = ReturnType<typeof useGetMenuItemsForCartQuery>;
+export type GetMenuItemsForCartLazyQueryHookResult = ReturnType<typeof useGetMenuItemsForCartLazyQuery>;
+export type GetMenuItemsForCartSuspenseQueryHookResult = ReturnType<typeof useGetMenuItemsForCartSuspenseQuery>;
+export type GetMenuItemsForCartQueryResult = Apollo.QueryResult<GetMenuItemsForCartQuery, GetMenuItemsForCartQueryVariables>;
 export const GetMenuDocument = gql`
     query GetMenu {
   categories {

@@ -22,46 +22,7 @@ export const App: React.FC = () => {
   return (
     <div className="flex flex-col min-h-screen">
       <Header isLoading={loading} categories={data?.categories} />
-      <CartSidebar
-        items={[
-          {
-            title: 'Піца баребкю',
-            image: 'menu/menu-1720024683',
-            count: 2,
-            price: 150,
-          },
-          {
-            title: 'Піца qweqw',
-            image: 'menu/menu-1720024683',
-            count: 2,
-            price: 100,
-          },
-          {
-            title: 'Піца 123',
-            image: 'menu/menu-1720024683',
-            count: 1,
-            price: 75,
-          },
-          {
-            title: 'Піца 123',
-            image: 'menu/menu-1720024683',
-            count: 1,
-            price: 75,
-          },
-          {
-            title: 'Піца 123',
-            image: 'menu/menu-1720024683',
-            count: 1,
-            price: 75,
-          },
-          {
-            title: 'Бонаква',
-            image: 'menu/menu-1720770982',
-            count: 1,
-            price: 57,
-          },
-        ]}
-      />
+      <CartSidebar />
       <div className="mx-12 my-24">
         <Routes>
           <Route path="/" element={<MenuPage />} />
