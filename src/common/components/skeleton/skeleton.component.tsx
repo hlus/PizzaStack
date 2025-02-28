@@ -1,13 +1,17 @@
-import { FC } from "react";
+import { FC } from 'react';
+import clsx from 'clsx';
 
 interface Props {
   width: number;
   height: number;
+  roundFull?: boolean;
 }
 
-export const Skeleton: FC<Props> = ({ width, height }) => (
-  <div
-    className="bg-gray-200 rounded-full animate-pulse"
-    style={{ width, height }}
-  />
-);
+export const Skeleton: FC<Props> = ({ width, height, roundFull = true }) => {
+  const classes = clsx('bg-gray-200 animate-pulse', {
+    'rounded-full': roundFull,
+    'rounded-md': !roundFull,
+  });
+
+  return <div className={classes} style={{ width, height }} />;
+};

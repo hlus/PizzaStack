@@ -10,13 +10,14 @@ import { ReactComponent as PizzaIcon } from '@app/assets/icons/pizza.svg';
 import { useOnClickOutside } from '@app/common/hooks/use-on-click-outside.hook';
 import { ReactComponent as XMarkSolidIcon } from '@app/assets/icons/x-mark-solid.svg';
 import { GetMenuItemsForCartQuery, useGetMenuItemsForCartQuery } from '@app/core/types';
+import { CartItemListLoading } from '../cart-item-list-loading/cart-item-list-loading.component';
 
 export const CartSidebar: React.FC = () => {
   const sidebar = React.useRef(null);
   const isOpened = useReactiveVar(cartOpenedState);
   const cartItems = useReactiveVar(cartState);
 
-  const { data, previousData } = useGetMenuItemsForCartQuery({ variables: { menuIds: Object.keys(cartItems) } });
+  const { data, previousData, loading } = useGetMenuItemsForCartQuery({ variables: { menuIds: Object.keys(cartItems) } });
 
   const total = data?.menu.reduce((acc, cartItem) => acc + cartItem.price * cartItems[cartItem.id], 0) ?? 0;
 
@@ -49,6 +50,8 @@ export const CartSidebar: React.FC = () => {
             <span className="text-lg font-medium text-gray-900">Cart is empty</span>
           </div>
         </div>
+      ) : !data && !previousData && loading ? (
+        <CartItemListLoading />
       ) : (
         <div className="flex flex-col gap-6 h-[calc(100%_-_3.25rem)] ">
           <div className="flex flex-col gap-6 overflow-y-auto">{(data || previousData)?.menu.map(renderCartItem)}</div>

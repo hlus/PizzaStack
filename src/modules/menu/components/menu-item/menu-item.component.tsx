@@ -38,7 +38,7 @@ export const MenuItem: React.FC<Props> = ({ id, image, weight, title, ingredient
         <AdvancedImage cldImg={imageCld} width={384} height={240} className="rounded-t-2xl" />
         {weight && <span className="absolute bottom-1.5 right-3 bg-gray-900/50 text-white text-sm px-2 rounded-[2rem]">{weight} г</span>}
       </div>
-      <div className="flex flex-col justify-between h-60 p-8">
+      <div className="flex flex-col justify-between h-[calc(100%_-_15rem)] p-8">
         <div>
           <h2 className={titleClasses}>{title}</h2>
           {ingredients && <p className="mb-8 line-clamp-3">{ingredients}</p>}
