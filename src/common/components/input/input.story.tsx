@@ -1,11 +1,11 @@
-import type { Meta, StoryObj } from "@storybook/react";
+import type { Meta, StoryObj } from '@storybook/react';
 
-import { Input } from "./input.component";
+import { Input } from './input.component';
 
 const meta = {
-  title: "Form/Input",
+  title: 'Form/Input',
   component: Input,
-  tags: ["autodocs"],
+  tags: ['autodocs'],
   argTypes: {},
   args: {},
 } satisfies Meta<typeof Input>;
@@ -15,16 +15,18 @@ type Story = StoryObj<typeof meta>;
 
 export const View: Story = {
   args: {
-    label: "Phone number",
-    placeholder: "phone number",
+    label: 'Phone number',
+    placeholder: 'phone number',
+    disabled: false,
   },
 };
 
 export const WithError: Story = {
   args: {
-    label: "Phone number",
-    placeholder: "phone number",
-    value: "+3809511111111",
-    error: "invalid phone number",
+    label: 'Phone number',
+    placeholder: 'phone number',
+    value: '+3809511111111',
+    error: 'invalid phone number',
+    disabled: false,
   },
 };
