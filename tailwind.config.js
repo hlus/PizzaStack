@@ -4,6 +4,7 @@ module.exports = {
   theme: {
     extend: {
       spacing: {
+        0.5: '0.125rem',
         1.25: '0.3125rem',
         2.75: '0.6875rem',
         3.5: '0.865rem',
@@ -12,6 +13,9 @@ module.exports = {
         49: '12.25rem',
         112: '28rem',
       },
+      borderWidth: {
+        5: '5px',
+      }
     },
   },
   plugins: [],
