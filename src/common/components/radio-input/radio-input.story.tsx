@@ -18,5 +18,6 @@ export const View: Story = {
     value: 'cash',
     label: 'Cash',
     name: 'payment-method',
+    defaultChecked: false,
   },
 };
