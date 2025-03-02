@@ -14,10 +14,12 @@ export enum ButtonVariant {
 interface Props extends ComponentProps<'button'> {
   size?: ButtonSize;
   variant?: ButtonVariant;
+  fullWidth?: boolean;
 }
 
-export const Button: React.FC<Props> = ({ size = ButtonSize.Base, variant = ButtonVariant.Primary, children, ...rest }) => {
+export const Button: React.FC<Props> = ({ size = ButtonSize.Base, variant = ButtonVariant.Primary, children, fullWidth = false, ...rest }) => {
   const buttonClasses = clsx(`text-sm text-gray-900  px-4 rounded-md transition-all`, {
+    'w-full': fullWidth,
     'py-2': size === ButtonSize.Base,
     'py-0.5': size === ButtonSize.SM,
     'opacity-50 cursor-not-allowed': rest.disabled,
