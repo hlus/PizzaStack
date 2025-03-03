@@ -21,8 +21,7 @@ export const CartSidebar: React.FC = () => {
   });
 
   useOnClickOutside(sidebar, (e) => {
-    // @ts-ignore
-    if (isOpened && !e?.target?.closest('#shopping-cart-button')) {
+    if (isOpened && !(e?.target as HTMLElement)?.closest('#shopping-cart-button')) {
       closeCart();
     }
   });
