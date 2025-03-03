@@ -1,36 +1,28 @@
 import clsx from 'clsx';
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { useReactiveVar } from '@apollo/client';
 
 import { cartState } from '../../store/cart-state';
-import { CartItem } from '../cart-item/cart-item.component';
+import { CartList } from '../cart-list/cart-list.component';
 import { Button } from '@app/common/components/button/button.component';
 import { cartOpenedState, closeCart } from '../../store/cart-open-state';
 import { ReactComponent as PizzaIcon } from '@app/assets/icons/pizza.svg';
 import { useOnClickOutside } from '@app/common/hooks/use-on-click-outside.hook';
 import { ReactComponent as XMarkSolidIcon } from '@app/assets/icons/x-mark-solid.svg';
-import { GetMenuItemsForCartQuery, useGetMenuItemsForCartQuery } from '@app/core/types';
-import { CartItemListLoading } from '../cart-item-list-loading/cart-item-list-loading.component';
 
 export const CartSidebar: React.FC = () => {
   const sidebar = React.useRef(null);
   const isOpened = useReactiveVar(cartOpenedState);
   const cartItems = useReactiveVar(cartState);
 
-  const { data, previousData, loading } = useGetMenuItemsForCartQuery({ variables: { menuIds: Object.keys(cartItems) } });
-
-  const total = data?.menu.reduce((acc, cartItem) => acc + cartItem.price * cartItems[cartItem.id], 0) ?? 0;
-
-  const renderCartItem = (item: GetMenuItemsForCartQuery['menu'][0]) => (
-    <CartItem key={`cart-item-${item.id}`} id={item.id} title={item.title} image={item.image} amount={cartItems[item.id]} price={item.price} />
-  );
-
   const cartClasses = clsx('w-112 h-[calc(100vh_-_3rem)] p-6 shadow-xl fixed z-10 bg-white right-0 top-12 transition-all', {
     'translate-x-full': !isOpened,
   });
 
-  useOnClickOutside(sidebar, () => {
-    if (isOpened) {
+  useOnClickOutside(sidebar, (e) => {
+    // @ts-ignore
+    if (isOpened && !e?.target?.closest('#shopping-cart-button')) {
       closeCart();
     }
   });
@@ -50,14 +42,16 @@ export const CartSidebar: React.FC = () => {
             <span className="text-lg font-medium text-gray-900">Cart is empty</span>
           </div>
         </div>
-      ) : !data && !previousData && loading ? (
-        <CartItemListLoading />
       ) : (
-        <div className="flex flex-col gap-6 h-[calc(100%_-_3.25rem)] ">
-          <div className="flex flex-col gap-6 overflow-y-auto">{(data || previousData)?.menu.map(renderCartItem)}</div>
-          <div className="border-t border-gray-200 pt-6 text-right text-sm font-medium text-gray-900">Total: {total} UAH</div>
-          <Button>Checkout</Button>
-        </div>
+        <CartList
+          appendix={
+            <Link to="/checkout">
+              <Button fullWidth onClick={closeCart}>
+                Checkout
+              </Button>
+            </Link>
+          }
+        />
       )}
     </div>
   );

@@ -10,10 +10,10 @@ export const useOnClickOutside = (ref: MutableRefObject<any>, handler: (event: M
       handler(event);
     };
     document.addEventListener('mousedown', listener);
-    // document.addEventListener('touchstart', listener);
+    document.addEventListener('touchstart', listener);
     return () => {
       document.removeEventListener('mousedown', listener);
-      // document.removeEventListener('touchstart', listener);
+      document.removeEventListener('touchstart', listener);
     };
   }, [ref, handler]);
 };

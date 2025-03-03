@@ -24,6 +24,7 @@ export const Header: React.FC<Props> = ({ isLoading, categories }) => {
 
   const isHomePage = location.pathname === '/';
   const isLoginPage = location.pathname === '/login';
+  const isCheckoutPage = location.pathname === '/checkout';
 
   const renderCategory = (category: Category) => (
     <HeaderCategoryLink key={`header-category-${category.id}`} url={`#${category.slug}`}>
@@ -55,9 +56,11 @@ export const Header: React.FC<Props> = ({ isLoading, categories }) => {
         )}
       </div>
       <div className="flex items-center gap-3">
-        <button onClick={toggleCart}>
-          <ShoppingCartSolidIcon className="w-6 h-6 [&>*]:fill-gray-900" />
-        </button>
+        {!isCheckoutPage && (
+          <button onClick={toggleCart} id="shopping-cart-button">
+            <ShoppingCartSolidIcon className="w-6 h-6 [&>*]:fill-gray-900" />
+          </button>
+        )}
         {isLoggedIn ? (
           <UserDropdown />
         ) : (
