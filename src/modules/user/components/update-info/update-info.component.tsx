@@ -1,7 +1,7 @@
 import React from 'react';
 import { Controller } from 'react-hook-form';
 
-import { Customers } from '@app/core/types';
+import { CustomerFront } from '../../types/user';
 import { useUpdateInfoForm } from './use-update-info-form';
 import { Input } from '@app/common/components/input/input.component';
 import { Button } from '@app/common/components/button/button.component';
@@ -10,7 +10,7 @@ import { ActionPaper } from '@app/common/components/action-paper/action-paper.co
 import { ActionPaperFooter } from '@app/common/components/action-paper-footer/action-paper-footer.component';
 
 interface UpdateInfoProps {
-  initialValues?: Customers;
+  initialValues?: CustomerFront;
   isUpdating?: boolean;
 
   onInfoUpdate?: (values: UpdateInfoFormValues) => Promise<void>;

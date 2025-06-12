@@ -43,3 +43,5 @@ export const removeItemFromCart = (id: string) => {
 
   saveAndUpdateCartState(cart);
 };
+
+export const clearCart = () => saveAndUpdateCartState({});

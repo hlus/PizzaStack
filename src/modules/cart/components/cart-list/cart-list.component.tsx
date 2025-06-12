@@ -1,10 +1,9 @@
 import clsx from 'clsx';
 import React from 'react';
-import { useReactiveVar } from '@apollo/client';
 
-import { cartState } from '../../store/cart-state';
+import { GetMenuItemsForCartQuery } from '@app/core/types';
 import { CartItem } from '../cart-item/cart-item.component';
-import { GetMenuItemsForCartQuery, useGetMenuItemsForCartQuery } from '@app/core/types';
+import { useCartItems } from '@app/modules/checkout/hooks/use-cart-items';
 import { CartItemListLoading } from '../cart-item-list-loading/cart-item-list-loading.component';
 
 export enum CartSumItemPosition {
@@ -19,8 +18,7 @@ interface Props {
 }
 
 export const CartList: React.FC<Props> = ({ appendix, scrollDisabled = false, cartSumItemPosition = CartSumItemPosition.BOTTOM }) => {
-  const cartItems = useReactiveVar(cartState);
-  const { data, previousData, loading } = useGetMenuItemsForCartQuery({ variables: { menuIds: Object.keys(cartItems) } });
+  const { data, previousData, loading, cartItems } = useCartItems();
 
   const total = data?.menu.reduce((acc, cartItem) => acc + cartItem.price * cartItems[cartItem.id], 0) ?? 0;
 
@@ -42,7 +40,7 @@ export const CartList: React.FC<Props> = ({ appendix, scrollDisabled = false, ca
 
   const cartSumItemClasses = clsx('text-right text-sm font-medium text-gray-900', {
     'border-t border-gray-200 pt-6': cartSumItemPosition === CartSumItemPosition.BOTTOM,
-  })
+  });
 
   const cartSumItem = <div className={cartSumItemClasses}>Total: {total} UAH</div>;
 

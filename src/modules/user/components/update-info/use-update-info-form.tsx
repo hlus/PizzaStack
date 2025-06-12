@@ -3,7 +3,7 @@ import { toast } from 'react-toastify';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 
-import { Customers } from '@app/core/types';
+import { CustomerFront } from '../../types/user';
 import { min3Symbols, phoneRegexp } from '@app/common/utils/regex';
 import { InfoFormFields, UpdateInfoFormValues } from './update-info.types';
 
@@ -13,7 +13,7 @@ const validationSchema = yup.object({
   [InfoFormFields.Address]: yup.string().trim().matches(min3Symbols, { excludeEmptyString: true, message: 'Please enter minimum 3 letters' }),
 });
 
-export const useUpdateInfoForm = (initialValues?: Customers, onUpdateInfo?: (values: UpdateInfoFormValues) => Promise<void>) => {
+export const useUpdateInfoForm = (initialValues?: CustomerFront, onUpdateInfo?: (values: UpdateInfoFormValues) => Promise<void>) => {
   const {
     control,
     formState: { isSubmitting },

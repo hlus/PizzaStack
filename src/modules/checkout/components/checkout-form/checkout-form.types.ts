@@ -1,11 +1,9 @@
-export enum PaymentType {
-  Cash = 'cash',
-  Card = 'card',
-}
+import { Payment_Types_Enum } from "@app/core/types";
+import { CustomerFront } from "@app/modules/user/types/user";
 
 export const paymentTypeOptions = [
-  { label: 'Cash', value: PaymentType.Cash },
-  { label: 'Card', value: PaymentType.Card },
+  { label: 'Cash', value: Payment_Types_Enum.Cash },
+  { label: 'Card', value: Payment_Types_Enum.Card },
 ];
 
 export enum FormField {
@@ -21,9 +19,14 @@ export interface FormValues {
   [FormField.Phone]: string;
   [FormField.Address]: string;
   [FormField.Comment]?: string;
-  [FormField.PaymentType]: PaymentType;
+  [FormField.PaymentType]: Payment_Types_Enum;
 }
 
 export interface UseCheckoutFormOptions {
   callback?: (data: FormValues) => Promise<void>;
+}
+
+export interface CheckoutFormProps {
+  initialValues?: CustomerFront;
+  submitCallback?: UseCheckoutFormOptions['callback'];
 }

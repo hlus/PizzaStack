@@ -1,0 +1,21 @@
+mutation CreateOrder(
+  $client_address: String!
+  $client_name: String!
+  $client_phone: String!
+  $comment: String = ""
+  $items: [OrderMenuItem!]!
+  $payment_type: String!
+) {
+  createOrder(
+    order: {
+      client_address: $client_address
+      client_name: $client_name
+      client_phone: $client_phone
+      items: $items
+      payment_type: $payment_type
+      comment: $comment
+    }
+  ) {
+    id
+  }
+}

@@ -14,4 +14,8 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-export const View: Story = {};
+export const View: Story = {
+  args: {
+    submitCallback: () => Promise.resolve(),
+  },
+};

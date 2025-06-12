@@ -3,13 +3,21 @@ import { Controller } from 'react-hook-form';
 
 import { useCheckoutForm } from './use-checkout-form';
 import { Input } from '@app/common/components/input/input.component';
-import { FormField, paymentTypeOptions } from './checkout-form.types';
 import { Button } from '@app/common/components/button/button.component';
 import { TextArea } from '@app/common/components/text-area/text-area.component';
 import { RadioGroup } from '@app/common/components/radio-group/radio-group.component';
+import { CheckoutFormProps, FormField, paymentTypeOptions } from './checkout-form.types';
 
-export const CheckoutForm: React.FC = () => {
-  const { control, onSubmit } = useCheckoutForm();
+export const CheckoutForm: React.FC<CheckoutFormProps> = ({ submitCallback, initialValues }) => {
+  const { control, onSubmit, reset } = useCheckoutForm({ callback: submitCallback });
+
+  React.useEffect(() => {
+    reset({
+      name: initialValues?.name || '',
+      phone: initialValues?.phone || '',
+      address: initialValues?.address || '',
+    });
+  }, [initialValues]);
 
   return (
     <form className="flex flex-col gap-2" onSubmit={onSubmit}>
