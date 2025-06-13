@@ -13,11 +13,17 @@ import { CartList, CartSumItemPosition } from '@app/modules/cart/components/cart
 
 export const CheckoutPage: React.FC = () => {
   const { data } = useGetMeDataQuery();
-  
+
   const cartItems = useReactiveVar(cartState);
   const [createOrder] = useCreateOrderMutation();
   const navigate = useNavigate();
-  
+
+  React.useEffect(() => {
+    if (Object.keys(cartItems).length === 0) {
+      navigate('/', { replace: true });
+    }
+  }, [cartItems]);
+
   const handleCheckoutSubmit = async (values: FormValues) => {
     const items = Object.entries(cartItems).map(([id, amount]) => ({ id, amount }));
 
@@ -33,8 +39,7 @@ export const CheckoutPage: React.FC = () => {
     });
 
     clearCart();
-    // TODO: show success order page with ID and some logo
-    navigate('/');
+    navigate('/checkout/thank-you', { replace: true });
   };
 
   return (

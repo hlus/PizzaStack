@@ -6,6 +6,7 @@ import { LoginPage } from './modules/auth/pages/login.page';
 import { MenuPage } from '@app/modules/menu/pages/menu.page';
 import { ProfilePage } from './modules/user/pages/profile.page';
 import { CheckoutPage } from './modules/checkout/pages/checkout.page';
+import { ThankYouPage } from './modules/checkout/pages/thank-you.page';
 import { Header } from '@app/common/components/header/header.component';
 import { Footer } from '@app/common/components/footer/footer.component';
 import { isLoggedInReactive } from '@app/modules/auth/store/reactive-vars';
@@ -37,6 +38,7 @@ export const App: React.FC = () => {
             }
           />
           <Route path="/checkout" element={<CheckoutPage />} />
+          <Route path="/checkout/thank-you" element={<ThankYouPage />} />
         </Routes>
       </div>
       <Footer />
