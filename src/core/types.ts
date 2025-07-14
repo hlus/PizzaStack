@@ -2166,6 +2166,8 @@ export type Orders_Menu = {
   /** An object relationship */
   item?: Maybe<Menu>;
   menu_id: Scalars['uuid']['output'];
+  /** An object relationship */
+  order?: Maybe<Orders>;
   order_id: Scalars['uuid']['output'];
 };
 
@@ -2252,6 +2254,7 @@ export type Orders_Menu_Bool_Exp = {
   id?: InputMaybe<Uuid_Comparison_Exp>;
   item?: InputMaybe<Menu_Bool_Exp>;
   menu_id?: InputMaybe<Uuid_Comparison_Exp>;
+  order?: InputMaybe<Orders_Bool_Exp>;
   order_id?: InputMaybe<Uuid_Comparison_Exp>;
 };
 
@@ -2272,6 +2275,7 @@ export type Orders_Menu_Insert_Input = {
   id?: InputMaybe<Scalars['uuid']['input']>;
   item?: InputMaybe<Menu_Obj_Rel_Insert_Input>;
   menu_id?: InputMaybe<Scalars['uuid']['input']>;
+  order?: InputMaybe<Orders_Obj_Rel_Insert_Input>;
   order_id?: InputMaybe<Scalars['uuid']['input']>;
 };
 
@@ -2331,6 +2335,7 @@ export type Orders_Menu_Order_By = {
   id?: InputMaybe<Order_By>;
   item?: InputMaybe<Menu_Order_By>;
   menu_id?: InputMaybe<Order_By>;
+  order?: InputMaybe<Orders_Order_By>;
   order_id?: InputMaybe<Order_By>;
 };
 
@@ -2503,6 +2508,13 @@ export type Orders_Mutation_Response = {
   affected_rows: Scalars['Int']['output'];
   /** data from the rows affected by the mutation */
   returning: Array<Orders>;
+};
+
+/** input type for inserting object relation for remote table "orders" */
+export type Orders_Obj_Rel_Insert_Input = {
+  data: Orders_Insert_Input;
+  /** upsert condition */
+  on_conflict?: InputMaybe<Orders_On_Conflict>;
 };
 
 /** on_conflict condition type for table "orders" */
@@ -3696,6 +3708,11 @@ export type GetCustomerDataQueryVariables = Exact<{ [key: string]: never; }>;
 
 export type GetCustomerDataQuery = { __typename?: 'query_root', customers: Array<{ __typename?: 'customers', id: any, name?: string | null, phone: string, address?: string | null }> };
 
+export type GetCustomerOrdersQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type GetCustomerOrdersQuery = { __typename?: 'query_root', orders: Array<{ __typename?: 'orders', id: any, created_at: any, status: Order_Status_Enum, sum?: any | null, order_items: Array<{ __typename?: 'orders_menu', amount: any, id: any, item?: { __typename?: 'menu', title: string } | null }> }>, order_status: Array<{ __typename?: 'order_status', id: string, label: string }> };
+
 export type GetMenuItemsForCartQueryVariables = Exact<{
   menuIds: Array<Scalars['uuid']['input']> | Scalars['uuid']['input'];
 }>;
@@ -3928,6 +3945,59 @@ export type GetCustomerDataQueryHookResult = ReturnType<typeof useGetCustomerDat
 export type GetCustomerDataLazyQueryHookResult = ReturnType<typeof useGetCustomerDataLazyQuery>;
 export type GetCustomerDataSuspenseQueryHookResult = ReturnType<typeof useGetCustomerDataSuspenseQuery>;
 export type GetCustomerDataQueryResult = Apollo.QueryResult<GetCustomerDataQuery, GetCustomerDataQueryVariables>;
+export const GetCustomerOrdersDocument = gql`
+    query GetCustomerOrders {
+  orders(order_by: {created_at: desc}) {
+    id
+    created_at
+    status
+    sum
+    order_items {
+      amount
+      id
+      item {
+        title
+      }
+    }
+  }
+  order_status {
+    id
+    label
+  }
+}
+    `;
+
+/**
+ * __useGetCustomerOrdersQuery__
+ *
+ * To run a query within a React component, call `useGetCustomerOrdersQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetCustomerOrdersQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetCustomerOrdersQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useGetCustomerOrdersQuery(baseOptions?: Apollo.QueryHookOptions<GetCustomerOrdersQuery, GetCustomerOrdersQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetCustomerOrdersQuery, GetCustomerOrdersQueryVariables>(GetCustomerOrdersDocument, options);
+      }
+export function useGetCustomerOrdersLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetCustomerOrdersQuery, GetCustomerOrdersQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetCustomerOrdersQuery, GetCustomerOrdersQueryVariables>(GetCustomerOrdersDocument, options);
+        }
+export function useGetCustomerOrdersSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<GetCustomerOrdersQuery, GetCustomerOrdersQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<GetCustomerOrdersQuery, GetCustomerOrdersQueryVariables>(GetCustomerOrdersDocument, options);
+        }
+export type GetCustomerOrdersQueryHookResult = ReturnType<typeof useGetCustomerOrdersQuery>;
+export type GetCustomerOrdersLazyQueryHookResult = ReturnType<typeof useGetCustomerOrdersLazyQuery>;
+export type GetCustomerOrdersSuspenseQueryHookResult = ReturnType<typeof useGetCustomerOrdersSuspenseQuery>;
+export type GetCustomerOrdersQueryResult = Apollo.QueryResult<GetCustomerOrdersQuery, GetCustomerOrdersQueryVariables>;
 export const GetMenuItemsForCartDocument = gql`
     query GetMenuItemsForCart($menuIds: [uuid!]!) {
   menu(where: {id: {_in: $menuIds}}) {

@@ -2,6 +2,7 @@ import React from 'react';
 
 import { useUpdateCustomerDataMutation } from '@app/core/types';
 import { UpdateInfo } from '../components/update-info/update-info.component';
+import { UserOrders } from '../components/user-orders/user-orders.component';
 import { Container } from '@app/common/components/container/container.component';
 import { useGetMeDataQuery } from '@app/modules/auth/hooks/use-get-me-data-query';
 import { InfoFormFields, UpdateInfoFormValues } from '../components/update-info/update-info.types';
@@ -33,6 +34,7 @@ export const ProfilePage: React.FC = () => {
   return (
     <Container>
       <UpdateInfo initialValues={data} isUpdating={isProfileUpdating} onInfoUpdate={handleUpdateInfo} />
+      <UserOrders />
     </Container>
   );
 };
