@@ -6,19 +6,10 @@ import { UserOrders } from '../components/user-orders/user-orders.component';
 import { Container } from '@app/common/components/container/container.component';
 import { useGetMeDataQuery } from '@app/modules/auth/hooks/use-get-me-data-query';
 import { InfoFormFields, UpdateInfoFormValues } from '../components/update-info/update-info.types';
-import { UpdateInfoLoading } from '../components/update-info-loading/update-info-loading.component';
 
 export const ProfilePage: React.FC = () => {
-  const { data, loading } = useGetMeDataQuery();
+  const { data, loading: isProfileDataLoading } = useGetMeDataQuery();
   const [updateCustomerData, { loading: isProfileUpdating }] = useUpdateCustomerDataMutation();
-
-  if (loading) {
-    return (
-      <Container>
-        <UpdateInfoLoading />
-      </Container>
-    );
-  }
 
   const handleUpdateInfo = async (values: UpdateInfoFormValues) => {
     await updateCustomerData({
@@ -33,8 +24,10 @@ export const ProfilePage: React.FC = () => {
 
   return (
     <Container>
-      <UpdateInfo initialValues={data} isUpdating={isProfileUpdating} onInfoUpdate={handleUpdateInfo} />
-      <UserOrders />
+      <div className="flex flex-col gap-6">
+        <UpdateInfo initialValues={data} isUpdating={isProfileUpdating} isLoading={isProfileDataLoading} onInfoUpdate={handleUpdateInfo} />
+        <UserOrders />
+      </div>
     </Container>
   );
 };

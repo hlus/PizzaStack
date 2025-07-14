@@ -15,7 +15,7 @@ export const UserOrders: FC = () => {
       ) : data && data.orders.length > 0 ? (
         <UserOrdersTable orders={data.orders} orderStatuses={data.order_status} />
       ) : (
-        <div>You don't have orders yet</div>
+        <h1 className="p-6 text-center text-lg">You don't have orders yet</h1>
       )}
     </ActionPaper>
   );
